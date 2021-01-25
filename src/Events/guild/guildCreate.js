@@ -13,7 +13,7 @@ module.exports = class guildCreate extends Event {
                 guildName: guild.name,
                 memberCount: guild.memberCount
             }
-           const gc = await guildConfig.findOneAndUpdate({guildId: guild.id}, Data, {
+           await guildConfig.findOneAndUpdate({guildId: guild.id}, Data, {
                new: true,
                upsert: true,
                useFindAndModify: false

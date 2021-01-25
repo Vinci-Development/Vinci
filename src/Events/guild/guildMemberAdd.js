@@ -2,7 +2,6 @@ const Event = require('../../Structures/Event');
 const memberConfig = require('../../database/models/memberConfig');
 const Canvas = require('discord-canvas');
 const { MessageAttachment } = require('discord.js');
-const { join } = require('path');
 module.exports = class guildMemberAdd extends Event {
     constructor(...args) {
         super(...args)
@@ -33,10 +32,7 @@ module.exports = class guildMemberAdd extends Event {
                 JoinDate: member.joinedTimestamp,
                 isBanned: false
             }
-            const mc = await memberConfig.findOneAndUpdate({ userID: member.user.id }, Data,
-                {
-                    new: true, upsert: true
-                })
+            Data.save();
         })
     }
     async run() {

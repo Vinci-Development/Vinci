@@ -1,10 +1,4 @@
 const Event = require('../../Structures/Event');
-const GuildConfig = require('../../database/models/guildConfig');
-class guildConfig {
-	constructor(guildConfig) {
-		require('../../database/schemas/guildConfig');
-	}
-}
 
 
 module.exports = class extends Event {

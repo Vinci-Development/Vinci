@@ -26,4 +26,5 @@ module.exports = class shibe extends Command {
     message.channel.send({embed});
     
     
-    };
+    }
+}

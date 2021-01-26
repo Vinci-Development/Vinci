@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 
-module.exports = class ass extends Command {
+module.exports = class play extends Command {
     constructor(...args) {
         super(...args, {
             aliases: [''],

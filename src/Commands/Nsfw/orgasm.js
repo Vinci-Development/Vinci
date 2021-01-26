@@ -8,6 +8,7 @@ module.exports = class orgasm extends Command {
             aliases: [''],
             description: "pussy pics.",
             nsfw: true,
+            category: "Nsfw"
         })
     }
     async run(message) {

@@ -26,4 +26,5 @@ module.exports = class owoify extends Command {
     
     
     
-    };
+    }
+}

@@ -1,6 +1,10 @@
 const Command = require('../../Structures/Command');
-const { MessageEmbed } = require('discord.js');
-const {request} = require('superagent');
+const {
+    MessageEmbed
+} = require('discord.js');
+const {
+    request
+} = require('superagent');
 
 module.exports = class advice extends Command {
 
@@ -16,8 +20,7 @@ module.exports = class advice extends Command {
     }
 
     async run(message, args) {
-    request
-            .get('http://api.adviceslip.com/advice')
+        request.get('http://api.adviceslip.com/advice')
             .end((err, res) => {
                 if (!err && res.status === 200) {
                     try {
@@ -28,9 +31,10 @@ module.exports = class advice extends Command {
                     const advice = JSON.parse(res.text)
                     message.channel.send(advice.slip.advice)
                 } else {
-                console.error(`REST call failed: ${err}, status code: ${res.status}`)
+                    console.error(`REST call failed: ${err}, status code: ${res.status}`)
                 }
             });
-    
-    
-    };
+
+
+    }
+}

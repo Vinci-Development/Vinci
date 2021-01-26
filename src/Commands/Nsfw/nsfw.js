@@ -8,6 +8,7 @@ module.exports = class nsfw extends Command {
             aliases: [''],
             description: "nsfw pics all kinds",
             nsfw: true,
+            category: "Nsfw"
         })
     }
     async run(message) {

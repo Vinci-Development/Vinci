@@ -32,7 +32,6 @@ module.exports = class guildMemberAdd extends Event {
                 JoinDate: member.joinedTimestamp,
                 isBanned: false
             }
-            Data.save();
         })
     }
     async run() {

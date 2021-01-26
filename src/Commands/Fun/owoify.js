@@ -1,7 +1,8 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
+const superagent = require('superagent');
 
-module.exports = class emojify extends Command {
+module.exports = class owoify extends Command {
 
     constructor(...args) {
         super(...args, {

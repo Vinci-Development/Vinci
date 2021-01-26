@@ -9,6 +9,7 @@ module.exports = class ass extends Command {
         super(...args, {
             aliases: [''],
             description: "evaluates javascript.",
+            category: "Owners",
             nsfw: false,
             ownerOnly: true
         })

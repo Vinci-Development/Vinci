@@ -1,46 +1,22 @@
 const Event = require('../../Structures/Event');
-const Profile = require('../../database/models/levelConfig');
-const random = require("random");
-const levelConfig = require('../../database/models/levelConfig');
+const Levels = require('discord-xp')
+
 module.exports = class extends Event {
 
 	async run(message) {
+		Levels.setURL("mongodb+srv://root:Hyg57aff@vinci.ujdc9.mongodb.net/Vinci");
 		const mentionRegex = RegExp(`^<@!?${this.client.user.id}>$`);
 		const mentionRegexPrefix = RegExp(`^<@!?${this.client.user.id}> `);
 
 		if (message.author.bot) return;
 		if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
 
-		const levelInfo = levelConfig.findOne({
-				guild: message.guild.id,
-				level: 1,
-				xp: 0,
-				totalXp: 0
-			},
-			async (err, data) => {
-				if (err) console.log(err);
-				if (!data) {
-					const newData = new levelConfig({
-						guild: message.guild.id,
-						level: 1,
-						xp: 0,
-						totalXp: 0
-					});
-					await newData.save().catch(errs => console.log(errs));
-				} else {
-					const generatedXp = Math.floor(Math.random() * 20);
-					levelInfo.xp += generatedXp;
-					levelInfo.totalXp += generatedXp;
-
-					if (levelInfo.xp >= levelInfo.level * 80) {
-						levelInfo.level++;
-						levelInfo.xp = 0;
-						message.channel.send(`Congrants ${message.author.tag} you're now in level **${levelInfo.level}**!`);
-					};
-				}
-			}
-		)
-
+		const randomXp = Math.floor(Math.random() * 20);
+		const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
+		if (hasLeveledUp) {
+			const user = await Levels.fetch(message.author.id, message.guild.id);
+			message.channel.send(`You leveled up to ${user.level}! Keep it going!`);
+		}
 
 		const prefix = message.content.match(mentionRegexPrefix) ?
 			message.content.match(mentionRegexPrefix)[0] : this.client.prefix;

@@ -1,5 +1,4 @@
 const Command = require('../../Structures/Command');
-const Profile = require('../../database/models/levelConfig');
 const canvacord = require('canvacord');
 const { MessageAttachment } = require('discord.js');
 

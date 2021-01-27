@@ -1,6 +1,7 @@
 const Event = require('../../Structures/Event');
 const Profile = require('../../database/models/levelConfig');
 const random = require("random");
+const levelConfig = require('../../database/models/levelConfig');
 module.exports = class extends Event {
 
 	async run(message) {
@@ -10,40 +11,36 @@ module.exports = class extends Event {
 		if (message.author.bot) return;
 		if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
 
-
-		Profile.findOne({
+		const levelInfo = levelConfig.findOne({
 				guild: message.guild.id,
-				userId: message.author.id,
-				name: message.author.username
+				level: 1,
+				xp: 0,
+				totalXp: 0
 			},
 			async (err, data) => {
 				if (err) console.log(err);
 				if (!data) {
-					const newData = new Profile({
+					const newData = new levelConfig({
 						guild: message.guild.id,
-						userId: message.author.id,
-						name: message.author.username,
-						level: 0,
+						level: 1,
 						xp: 0,
-						total_xp: 0,
+						totalXp: 0
 					});
-					await newData.save().catch(er => console.log(er));
+					await newData.save().catch(errs => console.log(errs));
 				} else {
-					let randomXP = random.int(30, 60);
-					data.xp += randomXP;
-					data.total_xp + randomXP;
-					data.last_message = Date.now()
-					const xpToNext = 6 * Math.pow(data.level, 2) + 5 * data.level + 100
-					if (data.xp >= xpToNext) {
-						data.level++
-						data.xp = data.xp - xpToNext;
-						message.channel.send(`Congrats ${message.author.tag}, you leveled up to ${data.level}`);
-					}
+					const generatedXp = Math.floor(Math.random() * 20);
+					levelInfo.xp += generatedXp;
+					levelInfo.totalXp += generatedXp;
 
-					data.save().catch(errs => console.log(errs));
+					if (levelInfo.xp >= levelInfo.level * 80) {
+						levelInfo.level++;
+						levelInfo.xp = 0;
+						message.channel.send(`Congrants ${message.author.tag} you're now in level **${levelInfo.level}**!`);
+					};
 				}
 			}
 		)
+
 
 		const prefix = message.content.match(mentionRegexPrefix) ?
 			message.content.match(mentionRegexPrefix)[0] : this.client.prefix;

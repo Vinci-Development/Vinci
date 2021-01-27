@@ -63,7 +63,9 @@ module.exports = class extends Event {
 		this.client.manager.on("queueEnd", player => {
 			const channel = this.client.channels.cache.get(player.textChannel);
 			channel.send("Queue has ended.");
-			player.destroy();
+			setTimeout(() => {
+				player.destroy();
+			}, 120000)
 		});
 	}
 };

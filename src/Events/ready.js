@@ -31,7 +31,7 @@ module.exports = class extends Event {
 			nodes,
 			// Method to send voice data to Discord
 			send: (id, payload) => {
-				const guild = client.guilds.cache.get(guild.id);
+				const guild = this.client.guilds.cache.get('801877337401458688');
 				// NOTE: FOR ERIS YOU NEED JSON.stringify() THE PAYLOAD
 				if (guild) guild.shard.send(payload);
 			}

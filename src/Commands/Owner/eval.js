@@ -1,9 +1,8 @@
 const Command = require('../../Structures/Command');
-const { stripIndents } = require('common-tags');
-const { Inspect, inspect } = require('util');
+const { inspect } = require('util');
 const { VultrexHaste } = require('vultrex.haste');
-const haste = new VultrexHaste({ url: "https://haste.in "});
-
+const haste = new VultrexHaste({url: "https://haste.bin"})
+const { Type } = require('@extreme_hero/deeptype');
 module.exports = class ass extends Command {
     constructor(...args) {
         super(...args, {
@@ -15,26 +14,45 @@ module.exports = class ass extends Command {
         })
     }
     async run(message, args) {
-        if(!args[0]) return message.reply("You just provide JavaScript code to evaluate..");
+        const msg = message;
+        if(!args.length) return msg.reply(`Provide javascript code to evaluate...`);
+
+        let code = args.join(' ');
+
+        code = code.replace(/[""]/g, '"').replace(/[""]/g, "'");
+        let evaled;
 
         try {
             const start = process.hrtime();
-            let output = eval(args.join(" "));
-            const diff = process.hrtime(start);
-            if(typeof output !== "string") output = inspect(output, { depth: 2});
+            evaled = eval(code);
+            if(evaled instanceof Promise) {
+                evaled = await evaled;
+            }
 
-            return message.channel.send(`
-                *Executed in ${diff[0] > 0 ? `${diff[0]}s` :  ""}${diff[1] / 1e6}ms*
-                \`\`\`js
-                ${output.length > 1950 ? await haste.post(output) : output}
-                \`\`\`
-            
-            `)
-        } catch(err) {
-            message.channel.send(stripIndents `
-                Error:
-                \`${err}\`
-            `);
+            const stop = process.hrtime(start);
+            const response = [
+                `**Output:** \`\`\`js\n${this.clean(inspect(evaled, {depth: 0}))}\n\`\`\``,
+                `**Type:** \`\`\`ts\n${new Type(evaled).is}\n\`\`\``,
+                `**Time taken:** \`\`\`${(((stop[0] * 1e0) + stop[1])) / 1e6}ms \`\`\``
+            ]
+            const res = response.join('\n');
+            if(res.length < 2000) {
+                await msg.channel.send(res);
+            } else {
+                haste.post(res);
+            }
+        } catch(e) {
+            return message.channel.send(`Error: \`\`\`x1\n${this.clean(e)}\n\`\`\``);
         }
+    };
+
+    clean(text) {
+        if(typeof text === 'string') {
+            text = text
+                .replace(/`/g, `\`${String.fromCharCode(8203)}`)
+                .replace(/@/g, `@${String.fromCharCode(8203)}`)
+                .replace(new RegExp(this.client.token, 'gi'), '****')
+        }
+        return text;
     }
-}
+};

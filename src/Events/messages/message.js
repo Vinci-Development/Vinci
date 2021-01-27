@@ -22,7 +22,7 @@ module.exports = class extends Event {
 		if (command) {
 
 			if (command.ownerOnly && !this.client.utils.checkOwner(message.author.id)) {
-				return message.reply('Sorry, this command can only be used by the bot owners.');
+				return message.reply('Sorry, you do not have access to this command!');
 			}
 
 			if (command.guildOnly && !message.guild) {

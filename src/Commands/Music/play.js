@@ -1,6 +1,10 @@
 const Command = require('../../Structures/Command');
-const erela = require('erela.js');
-
+const {
+    MessageEmbed
+} = require('discord.js')
+const {
+    Utils
+} = require('erela.js');
 
 module.exports = class play extends Command {
     constructor(...args) {
@@ -17,6 +21,15 @@ module.exports = class play extends Command {
         if (!message.member.voice.channel) return message.reply("you need to join a voice channel.");
         if (!args.length) return message.reply("you need to give me a URL or a search term.");
 
+        if (!message.guild.me.hasPermission("CONNECT")) return message.channel.send("I cannot connect to your voice channel, make sure I have permission to!");
+        if (!message.guild.me.hasPermission("SPEAK")) return message.channel.send("I cannot connect to your voice channel, make sure I have permission to!");
+
+        const player = this.client.manager.create({
+            guild: message.guild.id,
+            voiceChannel: message.member.voice.channel.id,
+            textChannel: message.channel.id,
+        });
+
         const search = args.join(" ");
         let res;
 
@@ -31,19 +44,14 @@ module.exports = class play extends Command {
         } catch (err) {
             return message.reply(`there was an error while searching: ${err.message}`);
         }
-        const player = this.client.manager.create({
-            guild: message.guild.id,
-            voiceChannel: message.member.voice.channel.id,
-            textChannel: message.channel.id,
-        });
 
+        // Connect to the voice channel and add the track to the queue
         player.connect();
         player.queue.add(res.tracks[0]);
-      
+
         // Checks if the client should play the track if it's the first one added
         if (!player.playing && !player.paused && !player.queue.size) player.play()
 
         return message.reply(`enqueuing ${res.tracks[0].title}.`);
-
     }
 }

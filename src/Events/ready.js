@@ -6,6 +6,7 @@ const {
 const {
 	Manager
 } = require("erela.js");
+const { MessageEmbed } = require('discord.js');
 
 
 module.exports = class extends Event {
@@ -55,8 +56,19 @@ module.exports = class extends Event {
 
 		this.client.manager.on("trackStart", (player, track) => {
 			const channel = this.client.channels.cache.get(player.textChannel);
+			const duration = ((track.duration/60000).toFixed(2).replace('.',':'));
 			// Send a message when the track starts playing with the track name and the requester's Discord tag, e.g. username#discriminator
-			channel.send(`Now playing: \`${track.title}\`, requested by \`${track.requester.tag}\`.`);
+			channel.send(
+				new MessageEmbed()
+					.addFields(
+						{name: "Now playing:", value: track.title, inline: true},
+						{name: "Duration:", value: duration, inline: true},
+						{name: "requested by:", value: track.requester.tag, inline: true}
+					)
+					.setTimestamp()
+					.setTitle("Finding a new song....")
+					.setThumbnail(track.requester.displayAvatarURL({ dynamic: true, size: 512 }))
+			);
 		});
 
 
@@ -64,6 +76,7 @@ module.exports = class extends Event {
 			const channel = this.client.channels.cache.get(player.textChannel);
 			channel.send("Queue has ended.");
 			setTimeout(() => {
+				message.reply("Queue hass ended leaving voice channel in 2 minutes...")
 				player.destroy();
 			}, 120000)
 		});

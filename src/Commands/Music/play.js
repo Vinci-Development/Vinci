@@ -42,7 +42,13 @@ module.exports = class play extends Command {
                 message: "Playlists are not supported with this command."
             };
         } catch (err) {
-            return message.reply(`there was an error while searching: ${err.message}`);
+            return message.channel.send(
+                new MessageEmbed()
+                    .setTitle("**ERROR**")
+                    .setDescription("there was an error while searching")
+                    .addField("Search query: ", search)
+                    .addField("Error message: ", err.message) 
+            );
         }
 
         // Connect to the voice channel and add the track to the queue
@@ -51,7 +57,15 @@ module.exports = class play extends Command {
 
         // Checks if the client should play the track if it's the first one added
         if (!player.playing && !player.paused && !player.queue.size) player.play()
-
-        return message.reply(`enqueuing ${res.tracks[0].title}.`);
+        const duration = ((res.tracks[0].duration/60000).toFixed(2).replace('.',':'));
+        return message.channel.send(
+            new MessageEmbed()
+                .addFields(
+                    {name: "Enqueuing: ", value: res.tracks[0].title, inline: true},
+                    {name: "Duration: ", value: duration, inline: true},
+                    {name: "Requested by: ", value: message.author.tag, inline: false},
+                )
+                .setThumbnail(message.author.displayAvatarURL({ dynamic: true, size: 512 }))
+        )
     }
-}
+}   

@@ -1,6 +1,6 @@
 const Event = require('../../Structures/Event');
-
-
+const Profile = require('../../database/models/levelConfig');
+const random = require("random");
 module.exports = class extends Event {
 
 	async run(message) {
@@ -8,12 +8,46 @@ module.exports = class extends Event {
 		const mentionRegexPrefix = RegExp(`^<@!?${this.client.user.id}> `);
 
 		if (message.author.bot) return;
-
 		if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
+
+
+		Profile.findOne({
+				guild: message.guild.id,
+				userId: message.author.id,
+				name: message.author.username
+			},
+			async (err, data) => {
+				if (err) console.log(err);
+				if (!data) {
+					const newData = new Profile({
+						guild: message.guild.id,
+						userId: message.author.id,
+						name: message.author.username,
+						level: 0,
+						xp: 0,
+						total_xp: 0,
+					});
+					await newData.save().catch(er => console.log(er));
+				} else {
+					let randomXP = random.int(30, 60);
+					data.xp += randomXP;
+					data.total_xp + randomXP;
+					data.last_message = Date.now()
+					const xpToNext = 6 * Math.pow(data.level, 2) + 5 * data.level + 100
+					if (data.xp >= xpToNext) {
+						data.level++
+						data.xp = data.xp - xpToNext;
+						message.channel.send(`Congrats ${message.author.tag}, you leveled up to ${data.level}`);
+					}
+
+					data.save().catch(errs => console.log(errs));
+				}
+			}
+		)
 
 		const prefix = message.content.match(mentionRegexPrefix) ?
 			message.content.match(mentionRegexPrefix)[0] : this.client.prefix;
-		
+
 		if (!message.content.startsWith(prefix)) return;
 
 		const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -37,7 +71,7 @@ module.exports = class extends Event {
 				return message.reply(`Sorry, this command requires arguments to function. Usage: ${command.usage ?
 					`${this.client.prefix + command.name} ${command.usage}` : 'This command doesn\'t have a usage format'}`);
 			}
-			
+
 			if (message.guild) {
 				const userPermCheck = command.userPerms ? this.client.defaultPerms.add(command.userPerms) : this.client.defaultPerms;
 				if (userPermCheck) {
@@ -55,7 +89,7 @@ module.exports = class extends Event {
 					}
 				}
 			}
-			
+
 			command.run(message, args);
 		}
 	}

@@ -3,11 +3,12 @@ const db = require('../database/mongodb');
 const {
 	nodes
 } = require('../../config.json');
-const {
-	Manager
-} = require("erela.js");
+const { Manager } = require("erela.js");
 const { MessageEmbed } = require('discord.js');
 
+const clientID = "example ID"; // clientID from your Spotify app
+const clientSecret = "example secret";
+const Spotify = require("erela.js-spotify");
 
 module.exports = class extends Event {
 
@@ -29,6 +30,12 @@ module.exports = class extends Event {
 
 		this.client.manager = new Manager({
 			// The nodes to connect to, optional if using default lavalink options
+			plugins: [
+				new Spotify({
+					clientID,
+					clientSecret
+				})
+			],
 			nodes,
 			// Method to send voice data to Discord
 			send: (id, payload) => {
@@ -56,18 +63,29 @@ module.exports = class extends Event {
 
 		this.client.manager.on("trackStart", (player, track) => {
 			const channel = this.client.channels.cache.get(player.textChannel);
-			const duration = ((track.duration/60000).toFixed(2).replace('.',':'));
+			const duration = ((track.duration / 60000).toFixed(2).replace('.', ':'));
 			// Send a message when the track starts playing with the track name and the requester's Discord tag, e.g. username#discriminator
 			channel.send(
 				new MessageEmbed()
-					.addFields(
-						{name: "Now playing:", value: track.title, inline: true},
-						{name: "Duration:", value: duration, inline: true},
-						{name: "requested by:", value: track.requester.tag, inline: true}
-					)
-					.setTimestamp()
-					.setTitle("Finding a new song....")
-					.setThumbnail(track.requester.displayAvatarURL({ dynamic: true, size: 512 }))
+				.addFields({
+					name: "Now playing:",
+					value: track.title,
+					inline: true
+				}, {
+					name: "Duration:",
+					value: duration,
+					inline: true
+				}, {
+					name: "requested by:",
+					value: track.requester.tag,
+					inline: true
+				})
+				.setTimestamp()
+				.setTitle("Finding a new song....")
+				.setThumbnail(track.requester.displayAvatarURL({
+					dynamic: true,
+					size: 512
+				}))
 			);
 		});
 

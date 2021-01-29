@@ -6,8 +6,8 @@ const {
 const { Manager } = require("erela.js");
 const { MessageEmbed } = require('discord.js');
 
-const clientID = "example ID"; // clientID from your Spotify app
-const clientSecret = "example secret";
+const clientID = "d5bb809e78a24c978dde6eee719294d5"; // clientID from your Spotify app
+const clientSecret = "d41d68379bdf4777bd95da73ca67a5ed";
 const Spotify = require("erela.js-spotify");
 
 module.exports = class extends Event {

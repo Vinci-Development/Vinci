@@ -30,12 +30,6 @@ module.exports = class extends Event {
 
 		this.client.manager = new Manager({
 			// The nodes to connect to, optional if using default lavalink options
-			plugins: [
-				new Spotify({
-					clientID,
-					clientSecret
-				})
-			],
 			nodes,
 			// Method to send voice data to Discord
 			send: (id, payload) => {

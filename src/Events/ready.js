@@ -95,20 +95,5 @@ module.exports = class extends Event {
 				player.destroy();
 			}, 120000)
 		});
-
-
-		
-        const manager = new GiveawaysManager(this.client, {
-            storage: '../../giveaways.json',
-            updateCountdownEvery: 10000,
-            hasGuildMembersIntent: false,
-            default: {
-                botsCanWin: false,
-                exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
-                reaction: '🎉'
-            }
-        });
-
-        this.client.giveawaysManager = manager;
 	}
 };

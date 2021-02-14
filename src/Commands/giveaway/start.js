@@ -21,7 +21,7 @@ module.exports = class start extends Command {
         })
     }
     async run(message, args) {
-        const channel = this.client.channels.cache.find(c => c.name === 'general');
+        const channel = this.client.channels.cache.find(c => c.name === 'giveaways');
         if(channel) {
             try {
                 const response = await getResponses(message);

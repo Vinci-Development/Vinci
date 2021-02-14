@@ -15,7 +15,7 @@ module.exports = class extends Event {
 		const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
 		if (hasLeveledUp) {
 			const user = await Levels.fetch(message.author.id, message.guild.id);
-			message.channel.send(`You leveled up to ${user.level}! Keep it going!`);
+			message.channel.send(`${message.author.username} leveled up to ${user.level}! Keep it going!`);
 		}
 
 		const prefix = message.content.match(mentionRegexPrefix) ?

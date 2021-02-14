@@ -5,10 +5,13 @@ const {
 } = require('../../config.json');
 const { Manager } = require("erela.js");
 const { MessageEmbed } = require('discord.js');
-
+/*
 const clientID = "d5bb809e78a24c978dde6eee719294d5"; // clientID from your Spotify app
 const clientSecret = "";
 const Spotify = require("erela.js-spotify");
+*/
+
+const { GiveawaysManager } = require('discord-giveaways');
 
 module.exports = class extends Event {
 
@@ -92,5 +95,20 @@ module.exports = class extends Event {
 				player.destroy();
 			}, 120000)
 		});
+
+
+		
+        const manager = new GiveawaysManager(this.client, {
+            storage: '../../giveaways.json',
+            updateCountdownEvery: 10000,
+            hasGuildMembersIntent: false,
+            default: {
+                botsCanWin: false,
+                exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
+                reaction: '🎉'
+            }
+        });
+
+        this.client.giveawaysManager = manager;
 	}
 };

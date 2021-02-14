@@ -5,5 +5,8 @@ module.exports = class extends Event {
         super(...args)
     };
     async run(member) {
+        const roles = this.client.guilds.roles.cache.find(r => r.name === 'member');
+
+        member.roles.add(roles);
     }
 }

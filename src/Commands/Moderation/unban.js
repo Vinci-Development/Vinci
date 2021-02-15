@@ -13,12 +13,16 @@ module.exports = class unban extends Command {
         })
     }
     async run(message, args) {
-        const user = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        let userID = args[0];
 
-        if (!user) return message.channel.send("You must provide a user to unban!")
+        if(!isNaN(args[0])) return message.channel.send("You must provide the id of the user..");
 
-        guild.user.unban();
-
-        message.channel.send(`Unbanned ${user.user.tag}`);
+        message.guild.fetchBans().then(bans => {
+            if(bans.size == 0) return message.channel.send("There is no bans in this guild");
+            let bannedUser = bans.find(b => b.user.id === userID);
+            if(!bannedUser) return message.channel.send(bannedUser.user.username + " is not banned");
+            await message.guild.members.unban(bannedUser.user).catch(err => console.log(err));
+            message.channel.send("Unbanned " + args[0]);
+        })
     }
 }

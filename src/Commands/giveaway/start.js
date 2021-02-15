@@ -17,7 +17,8 @@ module.exports = class start extends Command {
             aliases: ['g', 'gstart', 'startgiveaway'],
             description: 'Starts a giveaway',
             category: 'Giveaway',
-            ownerOnly: true
+            ownerOnly: true,
+            permissions: ["MANAGE_MESSAGE"]
         })
     }
     async run(message, args) {
@@ -41,6 +42,7 @@ module.exports = class start extends Command {
                     response.endsOn = new Date(Date.now() + ms(response.duration));
                     const gembed = new MessageEmbed()
                         .setTitle(response.title)
+                        .setColor("#ff0000")
                         .setDescription(`
                         Prize: ${response.prize}\n
                         Number of winners: ${response.winners}\n

@@ -1,7 +1,5 @@
 const Command = require("../../Structures/Command");
-const {
-    MessageEmbed
-} = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class softban extends Command {
     constructor(...args) {

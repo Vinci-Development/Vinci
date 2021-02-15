@@ -34,8 +34,7 @@ module.exports = class softban extends Command {
                     title: `Hello ${person.user.username}`,
                     description: `You have been banned from VinciMC\n Duration: ${time} day(s)\n Reason: ${reason}\n Banned by: ${message.author.tag}`
                 }
-            })
-            person.send(`You have been banned from this server for ${time} day(s) for ${reason}.`);
+            });
         }
 
         person.ban({
@@ -43,8 +42,7 @@ module.exports = class softban extends Command {
             time: time
         });
         const embed = new MessageEmbed()
-            .setTitle('`Tempban:`')
-            .setDescription(`\`Time:\` \`${time} day(s)\`, \`Reason:\` \`${reason}\``)
+            .setTitle('**VinciMC**')
             .setAuthor(message.member.displayName)
             .setColor("#ff0000")
             .setThumbnail(person.user.avatarURL())
@@ -52,7 +50,10 @@ module.exports = class softban extends Command {
                 {name: "Member ", value: person.user.username, inline: true},
                 {name: "Member id ", value: person.user.id, inline: true},
                 {name: "Moderator ", value: message.author.username, inline: true},
+                {name: "Duration ", value: time, inline: false},
+                {name: "Reason ", value: reason, inline: false},
             )
             .setTimestamp();
+        return message.channel.send(embed);
     }
 }

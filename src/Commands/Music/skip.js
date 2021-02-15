@@ -7,6 +7,7 @@ module.exports = class resume extends Command {
             aliases: ['r', 'res', 'continue'],
             description: 'Pauses the music.',
             guildOnly: true,
+            category: "Music"
         });
     }
     async run(message) {

@@ -9,6 +9,7 @@ module.exports = class nowplaying extends Command {
             aliases: ['np'],
             description: 'Shows what is currently playing.',
             guildOnly: true,
+            category: "Music"
         });
     }
     async run(message) {

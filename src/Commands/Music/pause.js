@@ -7,6 +7,7 @@ module.exports = class pause extends Command {
             aliases: ['p'],
             description: 'Pauses the music.',
             guildOnly: true,
+            category: "Music"
         });
     }
     async run(message) {

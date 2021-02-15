@@ -12,7 +12,6 @@ module.exports = class pat extends Command {
             category: 'Fun',
             guildOnly: true,
             nsfw: false,
-            PERMISSIONS: []
         });
     }
 

@@ -10,7 +10,7 @@ module.exports = class advice extends Command {
             category: 'Fun',
             guildOnly: true,
             nsfw: false,
-            PERMISSIONS: ['KICK_MEMBERS']
+            category: "Fun"
         });
     }
 

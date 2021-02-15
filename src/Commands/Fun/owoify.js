@@ -11,7 +11,7 @@ module.exports = class owoify extends Command {
             category: 'Fun',
             guildOnly: true,
             nsfw: false,
-            PERMISSIONS: []
+            category: "Fun"
         });
     }
 

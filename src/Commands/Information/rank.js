@@ -8,7 +8,8 @@ module.exports = class rank extends Command {
         super(...args, {
             aliases: [],
             description: "displays rank info",
-            guildOnly: true
+            guildOnly: true,
+            category: "Information"
         });
     }
 

@@ -7,7 +7,7 @@ module.exports = class Event {
 		this.emitter = (typeof options.emitter === 'string' ? this.client[options.emitter] : options.emitter) || this.client;
 	}
 
-	// eslint-disable-next-line no-unused-vars
+
 	async run(...args) {
 		throw new Error(`The run method has not been implemented in ${this.name}`);
 	}

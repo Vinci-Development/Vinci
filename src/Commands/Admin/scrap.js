@@ -10,6 +10,6 @@ module.exports = class scrap extends Command {
     }
 
     async run(message) {
-        axoios.get('https://cuteondiscord.com').then(res => console.log(res));
+        axoios.get('https://www.cuteondiscord.com/videos.html').then(res => console.log(res));
     }
 }

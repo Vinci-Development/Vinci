@@ -2,10 +2,7 @@ const Event = require('../Structures/Event');
 const db = require('../database/mongodb');
 const { nodes } = require('../../config.json');
 const { Manager } = require("erela.js");
-const { MessageEmbed } = require('discord.js');
-
-
-const { GiveawaysManager } = require('discord-giveaways');
+const server = require("../dashboard/server");
 
 module.exports = class extends Event {
 

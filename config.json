@@ -9,5 +9,10 @@
     "nodes":  [
         { "host": "161.97.114.25", "port": 25566, "password": "youshallnotpass" }
       ],
-    "port": "4000"
+    "port": "4000",
+    "bot": {
+      "id": "797620325541740605",
+      "secret": "YLLFislZRq6Y3yKteb2GJ5rdAzxHfgD_"
+    },
+    "dashboardURL": "https://vincimc.com/dashboard"
 }

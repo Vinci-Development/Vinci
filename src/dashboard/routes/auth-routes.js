@@ -1,4 +1,4 @@
-const config = require('../../config.json');
+const config = require('../../../config.json');
 const express = require('express');
 const authClient = require('../modules/auth-client');
 const sessions = require('../modules/sessions');

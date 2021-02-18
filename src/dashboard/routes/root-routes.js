@@ -1,5 +1,5 @@
 const express = require('express');
-const { commands } = require('../../handlers/command-handler');
+const { commands } = require('../../Structures/Command');
 
 const router = express.Router();
 

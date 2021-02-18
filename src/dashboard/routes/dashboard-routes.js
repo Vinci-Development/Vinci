@@ -1,5 +1,5 @@
 const express = require('express');
-const guilds = require('../../data/guilds');
+const guilds = require('../../database/models/guilds');
 const { validateGuild } = require('../modules/middleware');
 
 const router = express.Router();

@@ -1,6 +1,7 @@
 const Event = require('../../Structures/Event');
 const canvacord = require('canvacord');
 const { MessageAttachment } = require('discord.js');
+const gc = require('../../database/models/guilds');
 
 module.exports = class extends Event {
     constructor(...args) {
@@ -30,6 +31,20 @@ module.exports = class extends Event {
             .then(data => {
                 const attachment = new MessageAttachment(data, "welcome.png");
                 channel.send(attachment);
-            }) 
+            });
+
+/*
+        const user = new gc({
+            memberCount: guild.memberCount
+        });
+
+        user.updateOne({ name: 'memberCount'}, function(res, err) {
+            if(err) {
+                console.log("Failed to update database... " + err)
+            } else {
+                console.log(`${res}`)
+            }
+        })
+        */
     }
 }

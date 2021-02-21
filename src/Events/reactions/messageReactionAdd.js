@@ -1,3 +1,6 @@
+const {
+    urlencoded
+} = require('body-parser');
 const Event = require('../../Structures/Event');
 
 module.exports = class messageReactionAdd extends Event {
@@ -7,6 +10,6 @@ module.exports = class messageReactionAdd extends Event {
         })
     }
     async run(reaction, user) {
-        console.log(user.username + " reacted with " + reaction.emoji.name) 
+               
     }
 }

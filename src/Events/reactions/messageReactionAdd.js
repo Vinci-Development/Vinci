@@ -21,6 +21,7 @@ module.exports = class messageReactionAdd extends Event {
                     console.log("Creating ticket");
                     user.send("Creating ticket...");
                     try {
+                        
                     } catch(err) {
                         console.log(err)
                     }

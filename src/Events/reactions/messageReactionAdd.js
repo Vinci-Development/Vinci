@@ -3,10 +3,10 @@ const Event = require('../../Structures/Event');
 module.exports = class messageReactionAdd extends Event {
     constructor(...args) {
         super(...args, {
-            once: true
+            once: false
         })
     }
     async run(reaction, user) {
-        console.log(user.user.tag + " reacted with " + reaction.emoji.name) 
+        console.log(user.username + " reacted with " + reaction.emoji.name) 
     }
 }

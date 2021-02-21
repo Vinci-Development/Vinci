@@ -1,8 +1,5 @@
 const Event = require('../Structures/Event');
-const db = require('../database/mongodb');
-const { nodes } = require('../../config.json');
-const { Manager } = require("erela.js");
-const server = require("../dashboard/server");
+require('../database/mongodb');
 
 module.exports = class extends Event {
 

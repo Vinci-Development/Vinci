@@ -1,5 +1,5 @@
 const Event = require('../../Structures/Event');
-const guildConfig = require('../../database/models/guilds');
+const guildConfig = require('../../database/Mongodb/models/guilds');
 
 module.exports = class guildCreate extends Event {
     constructor(...args) {

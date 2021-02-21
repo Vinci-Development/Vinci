@@ -7,4 +7,4 @@ mongoose.connect('mongodb+srv://root:Hyg57aff@vinci.ujdc9.mongodb.net/Vinci', {
     useCreateIndex: true
 });
 
-mongoose.connection.on('open', () => console.log('Connected to the Database.'));
+mongoose.connection.on('open', () => console.log('Connected to the Mongoose Database.'));

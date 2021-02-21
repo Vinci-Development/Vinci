@@ -1,4 +1,4 @@
-const Giveaway = require('../database/models/Giveaway');
+const Giveaway = require('../database/Mongodb/models/Giveaway');
 const schedule = require('node-schedule')
 
 async function saveGiveaway(response) {

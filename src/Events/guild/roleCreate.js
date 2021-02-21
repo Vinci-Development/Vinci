@@ -1,5 +1,5 @@
 const Event = require('../../Structures/Event');
-const gc = require('../../database/models/guilds');
+const gc = require('../../database/Mongodb/models/guilds');
 
 module.exports = class rolecreate extends Event {
     constructor(...args) {

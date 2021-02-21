@@ -1,7 +1,7 @@
 const Event = require('../../Structures/Event');
 const canvacord = require('canvacord');
 const { MessageAttachment } = require('discord.js');
-const gc = require('../../database/models/guilds');
+const gc = require('../../database/Mongodb/models/guilds');
 
 module.exports = class extends Event {
     constructor(...args) {

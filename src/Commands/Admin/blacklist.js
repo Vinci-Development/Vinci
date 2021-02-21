@@ -1,6 +1,6 @@
 const Command = require('../../Structures/Command');
 const { MessageEmbed } = require('discord.js');
-const BlackList = require('../../database/models/blacklist');
+const BlackList = require('../../database/Mongodb/models/blacklist');
 
 module.exports = class blacklist extends Command {
     constructor(...args) {

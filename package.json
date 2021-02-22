@@ -50,6 +50,7 @@
     "random": "^2.2.0",
     "sequelize": "^6.5.0",
     "short-unique-id": "^3.2.3",
+    "social-post-api": "^1.0.15",
     "superagent": "^6.1.0",
     "timestring": "^6.0.0",
     "trev": "^2.0.8",

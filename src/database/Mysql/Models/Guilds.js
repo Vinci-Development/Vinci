@@ -9,13 +9,12 @@ module.exports = class Guilds extends Model {
             guildId: {
                 type: DataTypes.STRING,
                 primaryKey: true,
-                autoIncrement: true
             },
             memberSize: {
                 type: DataTypes.INTEGER
             },
             channelSize: {
-                type: DataTypes.NUMBER
+                type: DataTypes.INTEGER
             },
             banSize: {
                 type: DataTypes.INTEGER

@@ -3,7 +3,7 @@ const Event = require('../../Structures/Event');
 const Guilds = require('../../database/Mysql/Models/Guilds');
 
 
-module.exports = class rolecreate extends Event {
+module.exports = class roledelete extends Event {
     constructor(...args) {
         super(...args, {
         })

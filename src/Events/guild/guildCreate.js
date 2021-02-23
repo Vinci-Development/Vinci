@@ -8,8 +8,8 @@ module.exports = class guildCreate extends Event {
         })
     }
     async run() {
-        const bans = await guild.fetchBans();
         const guild = this.client.guilds.cache.get('797204659730907287');
+        const bans = await guild.fetchBans();
         const guilds = await Guilds.create({
             guildName: guild.name,
             guildId: guild.id,
@@ -17,8 +17,9 @@ module.exports = class guildCreate extends Event {
             channelSize: guild.channels.cache.size,
             banSize: bans.size,
             roleSize: guild.roles.cache.size,
-            guildOwner: guild.owner.user.username,
+            guildOwner: guild.owner.user.tag,
             guildOwnerId: guild.owner.user.id
         });
+        console.log("Joined " + guild.name);
     }
 }
